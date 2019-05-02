@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">JStore_Android_Gemma</string>
+    <string name="please_insert_your_email">Please Insert Your Email</string>
+    <string name="email">Email</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+    <string name="e_mail">E-mail</string>
+</resources>
