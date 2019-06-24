@@ -2,22 +2,16 @@ package com.example.jstore_android_gemma;
 
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
-
+import com.android.volley.Request;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MenuRequest extends StringRequest {
-    private static final String Regis_URL = "http://10.10.52.135:8080/items";
+    private static final String Regis_URL = "http://192.168.0.104:8080/items";
     private Map<String, String> params;
 
-    public MenuRequest(int id, Response.Listener<String> listener){
-        super(Method.GET, Regis_URL, listener, null);
-        params = new HashMap<>();
-        params.put("id", Integer.toString(id));
-    }
-
-    @Override
-    public Map<String, String> getParams(){
-        return params;
+    public MenuRequest(Response.Listener<String> listener) {
+        super(Request.Method.GET, Regis_URL, listener, null);
     }
 }
+

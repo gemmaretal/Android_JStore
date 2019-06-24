@@ -1,33 +1,36 @@
 package com.example.jstore_android_gemma;
 
-import android.widget.BaseExpandableListAdapter;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class MainListAdapter extends BaseExpandableListAdapter {
     private Context _context;
-    private ArrayList<Supplier> listSupplier; // header titles
-    // child data in format of header title, child title
-    private HashMap<Supplier, ArrayList<Item>> childMapping;
+    private ArrayList<String> _listDataHeader;
+    private HashMap<String, ArrayList<String>> _listDataChild;
 
-    public MainListAdapter(ArrayList<Supplier> listSupplier,
-                           HashMap<Supplier, ArrayList<Item>> childMapping) {
-        this.listSupplier = listSupplier;
-        this.childMapping = childMapping;
+    public MainListAdapter(Context context,
+                           ArrayList<String> listDataHeader,
+                           HashMap<String, ArrayList<String>> listChildData) {
+
+        Log.d("items","listDataHeader: "+String.valueOf(listDataHeader));
+        Log.d("items","listChildData: "+String.valueOf(listChildData));
+        this._context = context;
+        this._listDataHeader = listDataHeader;
+        this._listDataChild = listChildData;
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosititon) {
-        return this.childMapping.get(this.listSupplier.get(groupPosition))
+        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
                 .get(childPosititon);
     }
 
@@ -48,7 +51,7 @@ public class MainListAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.layout_item, null);
         }
 
-        TextView txtListChild = (TextView) convertView
+        TextView txtListChild = convertView
                 .findViewById(R.id.child);
 
         txtListChild.setText(childText);
@@ -57,18 +60,18 @@ public class MainListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this.childMapping.get(this.listSupplier.get(groupPosition))
+        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
                 .size();
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return this.listSupplier.get(groupPosition);
+        return this._listDataHeader.get(groupPosition);
     }
 
     @Override
     public int getGroupCount() {
-        return this.listSupplier.size();
+        return this._listDataHeader.size();
     }
 
     @Override
